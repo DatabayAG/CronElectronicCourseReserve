@@ -17,6 +17,11 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 	protected $inItemTag;
 
 	/**
+	 * @var string
+	 */
+	public $cdata;
+
+	/**
 	 * @param                      $xmlFile
 	 */
 	public function __construct($xmlFile)

@@ -14,6 +14,11 @@ class ilElectronicCourseReserveUrlParser extends ilSaxParser
 	protected $container;
 
 	/**
+	 * @var string
+	 */
+	public $cdata;
+
+	/**
 	 * ilElectronicCourseReserveUrlParser constructor.
 	 * @param ilElectronicCourseReserveContainer $ele_crs_res
 	 * @param $xmlFile
@@ -41,15 +46,12 @@ class ilElectronicCourseReserveUrlParser extends ilSaxParser
 				break;
 
 			case 'url':
-
 				break;
 
 			case 'description':
-
 				break;
 
 			case 'label':
-
 				break;
 		}
 	}
