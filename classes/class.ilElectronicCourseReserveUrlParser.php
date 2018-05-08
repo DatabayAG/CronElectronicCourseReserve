@@ -23,6 +23,7 @@ class ilElectronicCourseReserveUrlParser extends ilSaxParser
 		$this->container = $ele_crs_res;
 		$this->container->setItem( new ilElectronicCourseReserveUrl());
 		$this->setHandlers($xmlFile);
+		parent::__construct();
 	}
 
 
