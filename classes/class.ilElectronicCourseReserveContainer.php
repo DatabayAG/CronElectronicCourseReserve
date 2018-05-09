@@ -23,6 +23,11 @@ class ilElectronicCourseReserveContainer
 	protected $item = null;
 
 	/**
+	 * @var string 
+	 */
+	protected $type = '';
+
+	/**
 	 * @return string
 	 */
 	public function getLabel()
@@ -84,5 +89,37 @@ class ilElectronicCourseReserveContainer
 	public function setItem($item)
 	{
 		$this->item = $item;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getValidTypes(): array
+	{
+		return $this->valid_types;
+	}
+
+	/**
+	 * @param array $valid_types
+	 */
+	public function setValidTypes(array $valid_types)
+	{
+		$this->valid_types = $valid_types;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
+
+	/**
+	 * @param string $type
+	 */
+	public function setType($type)
+	{
+		$this->type = $type;
 	}
 }

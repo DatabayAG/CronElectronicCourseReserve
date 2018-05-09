@@ -50,9 +50,11 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 					if(strtolower($item_type) === 'url')
 					{
 						new ilElectronicCourseReserveUrlParser($this->ele_crs_res, $xmlParser);
+						$this->ele_crs_res->setType('url');
 					}else if(strtolower($item_type) === 'file')
 					{
 						new ilElectronicCourseReserveFileParser($this->ele_crs_res, $xmlParser);
+						$this->ele_crs_res->setType('file');
 					}
 					$this->inItemTag = true;
 				break;
