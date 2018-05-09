@@ -43,6 +43,12 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 		switch($tagName)
 		{
 			case 'label':
+				$folder_import_id = $this->fetchAttribute($tagAttributes, 'id');
+				if($folder_import_id > 0)
+				{
+					$this->ele_crs_res->setFolderImportId($folder_import_id);
+				}
+
 				break;
 
 			case 'item':
@@ -64,6 +70,11 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 				$format = $this->fetchAttribute($tagAttributes, 'format');
 				$this->ele_crs_res->setTimestamp($timestamp);
 				$this->ele_crs_res->setTimestampFormat($format);
+				break;
+
+			case 'semesterapparat':
+				$crs_ref_id = $this->fetchAttribute($tagAttributes, 'iliasID');
+				$this->ele_crs_res->setCrsRefId($crs_ref_id);
 				break;
 		}
 	}

@@ -28,6 +28,16 @@ class ilElectronicCourseReserveContainer
 	protected $type = '';
 
 	/**
+	 * @var int 
+	 */
+	protected $crs_ref_id = 0;
+
+	/**
+	 * @var int 
+	 */
+	protected $folder_import_id = 0;
+
+	/**
 	 * @return string
 	 */
 	public function getLabel()
@@ -92,22 +102,6 @@ class ilElectronicCourseReserveContainer
 	}
 
 	/**
-	 * @return array
-	 */
-	public function getValidTypes(): array
-	{
-		return $this->valid_types;
-	}
-
-	/**
-	 * @param array $valid_types
-	 */
-	public function setValidTypes(array $valid_types)
-	{
-		$this->valid_types = $valid_types;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getType()
@@ -121,5 +115,37 @@ class ilElectronicCourseReserveContainer
 	public function setType($type)
 	{
 		$this->type = $type;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getCrsRefId(): int
+	{
+		return $this->crs_ref_id;
+	}
+
+	/**
+	 * @param int $crs_ref_id
+	 */
+	public function setCrsRefId(int $crs_ref_id)
+	{
+		$this->crs_ref_id = $crs_ref_id;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getFolderImportId(): int
+	{
+		return $this->folder_import_id;
+	}
+
+	/**
+	 * @param int $folder_import_id
+	 */
+	public function setFolderImportId(int $folder_import_id)
+	{
+		$this->folder_import_id = $folder_import_id;
 	}
 }
