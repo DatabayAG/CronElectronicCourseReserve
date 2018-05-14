@@ -31,8 +31,6 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 		parent::__construct($xmlFile);
 	}
 
-
-
 	/**
 	 * @param $xmlParser
 	 * @param $tagName
@@ -99,6 +97,11 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 		}
 	}
 
+	/**
+	 * @param $attributes
+	 * @param $name
+	 * @return null
+	 */
 	private function fetchAttribute($attributes, $name)
 	{
 		if( isset($attributes[$name]) )
@@ -118,6 +121,10 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 		xml_set_character_data_handler($xmlParser, 'handlerCharacterData');
 	}
 
+	/**
+	 * @param $xmlParser
+	 * @param $charData
+	 */
 	public function handlerCharacterData($xmlParser, $charData)
 	{
 		if($charData != "\n")

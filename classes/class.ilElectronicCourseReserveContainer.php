@@ -120,7 +120,7 @@ class ilElectronicCourseReserveContainer
 	/**
 	 * @return int
 	 */
-	public function getCrsRefId(): int
+	public function getCrsRefId()
 	{
 		return $this->crs_ref_id;
 	}
@@ -128,7 +128,7 @@ class ilElectronicCourseReserveContainer
 	/**
 	 * @param int $crs_ref_id
 	 */
-	public function setCrsRefId(int $crs_ref_id)
+	public function setCrsRefId($crs_ref_id)
 	{
 		$this->crs_ref_id = $crs_ref_id;
 	}
@@ -136,7 +136,7 @@ class ilElectronicCourseReserveContainer
 	/**
 	 * @return int
 	 */
-	public function getFolderImportId(): int
+	public function getFolderImportId()
 	{
 		return $this->folder_import_id;
 	}

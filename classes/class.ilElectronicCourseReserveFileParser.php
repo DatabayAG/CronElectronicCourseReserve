@@ -31,8 +31,6 @@ class ilElectronicCourseReserveFileParser extends ilSaxParser
 		parent::__construct();
 	}
 
-
-
 	/**
 	 * @param $xmlParser
 	 * @param $tagName
@@ -104,6 +102,10 @@ class ilElectronicCourseReserveFileParser extends ilSaxParser
 		xml_set_character_data_handler($xmlParser, 'handlerCharacterData');
 	}
 
+	/**
+	 * @param $xmlParser
+	 * @param $charData
+	 */
 	public function handlerCharacterData($xmlParser, $charData)
 	{
 		if($charData != "\n")
