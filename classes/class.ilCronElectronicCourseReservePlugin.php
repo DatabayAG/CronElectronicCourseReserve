@@ -65,7 +65,7 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
 	}
 
 	/**
-	 * @return self
+	 * @return self|ilPlugin
 	 */
 	public static function getInstance()
 	{

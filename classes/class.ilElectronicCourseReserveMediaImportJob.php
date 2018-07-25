@@ -62,7 +62,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
 	{
 		require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/ElectronicCourseReserve/classes/class.ilElectronicCourseReserveDigitizedMediaImporter.php';
 		$job = new ilElectronicCourseReserveDigitizedMediaImporter();
-		$job->run();
+		$job->run($this->getId());
 
 		$result = new ilCronJobResult();
 		$result->setMessage('Finished cron job task.');
