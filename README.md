@@ -19,7 +19,7 @@ in this document are to be interpreted as described in
 This plugin MUST be installed as a
 [Cron Plugin](https://www.ilias.de/docu/goto_docu_pg_56994_42.html).
 
-The path MUST look like this:
+The files MUST be saved in the following directory:
 
 	<ILIAS_DIRECTORY>/Customizing/global/plugins/Services/Cron/CronHook/CronElectronicCourseReserve
 
