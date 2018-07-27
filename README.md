@@ -19,6 +19,10 @@ in this document are to be interpreted as described in
 This plugin MUST be installed as a
 [Cron Plugin](https://www.ilias.de/docu/goto_docu_pg_56994_42.html).
 
+The path MUST look like this:
+
+	<ILIAS_DIRECTORY>/Customizing/global/plugins/Services/Cron/CronHook/CronElectronicCourseReserve
+
 Correct file and folder permissions MUST be
 ensured by the responsible system administrator.
 
