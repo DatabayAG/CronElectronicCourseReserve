@@ -71,7 +71,7 @@ to be important to log.
 
 ## Dependencies
 
-* ElectronicCourseReserve Plugin
+* ElectronicCourseReserve Plugin (https://gitlab.databay.de/ilias/esa_ui.git)
 
 ## License
 
