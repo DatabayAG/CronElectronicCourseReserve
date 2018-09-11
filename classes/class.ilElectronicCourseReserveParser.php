@@ -47,6 +47,15 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 					$this->ele_crs_res->setFolderImportId($folder_import_id);
 				}
 
+				$overwrite = $this->fetchAttribute($tagAttributes, 'overwrite');
+				if($overwrite == 1 || strtolower($overwrite) === 'yes')
+				{
+					$this->ele_crs_res->setOverwrite(1);
+				}
+				else {
+					$this->ele_crs_res->setOverwrite(0);
+				}
+
 				break;
 
 			case 'item':

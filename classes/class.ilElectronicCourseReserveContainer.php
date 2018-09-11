@@ -38,6 +38,11 @@ class ilElectronicCourseReserveContainer
 	protected $folder_import_id = 0;
 
 	/**
+	 * @var int 
+	 */
+	protected $overwrite = 0;
+
+	/**
 	 * @return string
 	 */
 	public function getLabel()
@@ -144,8 +149,26 @@ class ilElectronicCourseReserveContainer
 	/**
 	 * @param int $folder_import_id
 	 */
-	public function setFolderImportId(int $folder_import_id)
+	public function setFolderImportId($folder_import_id)
 	{
 		$this->folder_import_id = $folder_import_id;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getOverwrite()
+	{
+		return $this->overwrite;
+	}
+
+	/**
+	 * @param int $overwrite
+	 */
+	public function setOverwrite($overwrite)
+	{
+		$this->overwrite = $overwrite;
+	}
+
+
 }
