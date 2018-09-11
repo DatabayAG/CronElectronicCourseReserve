@@ -48,8 +48,7 @@ class ilElectronicCourseReserveParser extends ilSaxParser
 				}
 
 				$overwrite = $this->fetchAttribute($tagAttributes, 'overwrite');
-				if($overwrite == 1 || strtolower($overwrite) == 'yes' || strtolower($overwrite) == 'true')
-				{
+				if($overwrite == 1 || strtolower($overwrite) == 'yes' || strtolower($overwrite) == 'true') {
 					$this->ele_crs_res->setOverwrite(1);
 				}
 				else {
