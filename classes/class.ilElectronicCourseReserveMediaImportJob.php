@@ -10,8 +10,7 @@ require_once 'class.ilCronElectronicCourseReservePlugin.php';
 class ilElectronicCourseReserveMediaImportJob extends ilCronJob
 {
 	/**
-	 * Get id
-	 * @return string
+	 * @inheritdoc
 	 */
 	public function getId()
 	{
@@ -19,8 +18,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
 	}
 
 	/**
-	 * Is to be activated on "installation"
-	 * @return boolean
+	 * @inheritdoc
 	 */
 	public function hasAutoActivation()
 	{
@@ -28,8 +26,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
 	}
 
 	/**
-	 * Can the schedule be configured?
-	 * @return boolean
+	 * @inheritdoc
 	 */
 	public function hasFlexibleSchedule()
 	{
@@ -37,8 +34,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
 	}
 
 	/**
-	 * Get schedule type
-	 * @return int
+	 * @inheritdoc
 	 */
 	public function getDefaultScheduleType()
 	{
@@ -46,27 +42,44 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
 	}
 
 	/**
-	 * Get schedule value
-	 * @return int|array
+	 * @inheritdoc
 	 */
-	function getDefaultScheduleValue()
+	public function getDefaultScheduleValue()
 	{
 		return 1;
 	}
 
 	/**
-	 * Run job
-	 * @return ilCronJobResult
+	 * @inheritdoc
+	 */
+	public function hasCustomSettings()
+	{
+		return true;
+	}
+
+	/**
+	 * @inheritdoc
 	 */
 	public function run()
 	{
-		require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/ElectronicCourseReserve/classes/class.ilElectronicCourseReserveDigitizedMediaImporter.php';
-		$job = new ilElectronicCourseReserveDigitizedMediaImporter();
-		$job->run($this->getId());
-
 		$result = new ilCronJobResult();
-		$result->setMessage('Finished cron job task.');
-		$result->setStatus(ilCronJobResult::STATUS_OK);
+
+		if (\ilCronElectronicCourseReservePlugin::getInstance()->isPluginInstalled(
+			'UIComponent', 'uihk', 'ilElectronicCourseReservePlugin'
+		) && ilCronElectronicCourseReservePlugin::getInstance()->getPlugin(
+				'UIComponent', 'uihk', 'ilElectronicCourseReservePlugin'
+		)->isActive()) {
+			require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/ElectronicCourseReserve/classes/class.ilElectronicCourseReserveDigitizedMediaImporter.php';
+			$job = new ilElectronicCourseReserveDigitizedMediaImporter();
+			$job->run($this->getId());
+
+			$result->setMessage('Finished cron job task.');
+			$result->setStatus(ilCronJobResult::STATUS_OK);
+		} else {
+			$result->setMessage('Please install and activate the ILIAS plugin "ElectronicCourseReserve".');
+			$result->setStatus(ilCronJobResult::STATUS_INVALID_CONFIGURATION);
+		}
+
 		return $result;
 	}
 
@@ -84,5 +97,46 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
 	public function getDescription()
 	{
 		return ilCronElectronicCourseReservePlugin::getInstance()->txt('ecr_title');
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function addCustomSettingsToForm(ilPropertyFormGUI $a_form)
+	{
+		global $DIC;
+
+		parent::addCustomSettingsToForm($a_form);
+
+		if (\ilCronElectronicCourseReservePlugin::getInstance()->isPluginInstalled(
+			'UIComponent', 'uihk', 'ilElectronicCourseReservePlugin'
+		)) {
+			$configUrl = new \ilNonEditableValueGUI(
+				\ilCronElectronicCourseReservePlugin::getInstance()->txt('ecr_configuration_page'), '', true
+			);
+
+			$pl = ilCronElectronicCourseReservePlugin::getInstance()->getPlugin(
+				'UIComponent', 'uihk', 'ilElectronicCourseReservePlugin'
+			);
+
+			$objIds = array_keys(\ilObject::_getObjectsByType('cmps'));
+			$objId = current($objIds);
+
+			$refIds = \ilObject::_getAllReferences($objId);
+			$refId = current($refIds);
+
+			$DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'ref_id', $refId);
+			$DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'ctype', $pl->getComponentType());
+			$DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'cname', $pl->getComponentName());
+			$DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'slot_id', $pl->getSlotId());
+			$DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'plugin_id', $pl->getId());
+			$DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'pname', $pl->getPluginName());
+			$DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'admin_mode', 'settings');
+
+			$configUrl->setValue('<a target="_blank" href="' . $DIC->ctrl()->getLinkTargetByClass([
+				'ilAdministrationGUI', 'ilobjcomponentsettingsgui', 'ilElectronicCourseReserveConfigGUI'
+			]) . '">' . \ilCronElectronicCourseReservePlugin::getInstance()->txt('ecr_configuration_page') . '</a>');
+			$a_form->addItem($configUrl);
+		}
 	}
 } 
