@@ -54,6 +54,9 @@ class ilElectronicCourseReserveFileParser extends ilSaxParser
 
 			case 'label':
 				break;
+
+			case 'metadata':
+				break;
 		}
 	}
 
@@ -87,6 +90,11 @@ class ilElectronicCourseReserveFileParser extends ilSaxParser
 
 			case 'label':
 				$this->container->getItem()->setLabel(trim($this->cdata));
+				$this->cdata = '';
+				break;
+
+			case 'metadata':
+				$this->container->getItem()->setMetadata(trim($this->cdata));
 				$this->cdata = '';
 				break;
 		}

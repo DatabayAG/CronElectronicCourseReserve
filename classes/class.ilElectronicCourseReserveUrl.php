@@ -23,6 +23,11 @@ class ilElectronicCourseReserveUrl
 	protected $description = '';
 
 	/**
+	 * @var string
+	 */
+	protected $metadata = '';
+
+	/**
 	 * @return string
 	 */
 	public function getIcon()
@@ -84,6 +89,22 @@ class ilElectronicCourseReserveUrl
 	public function setDescription($description)
 	{
 		$this->description = $description;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+
+	/**
+	 * @param string $metadata
+	 */
+	public function setMetadata($metadata)
+	{
+		$this->metadata = $metadata;
 	}
 
 }
