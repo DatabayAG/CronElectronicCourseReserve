@@ -84,6 +84,17 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     }
 
     /**
+     * @inheritDoc
+     */
+    public function activationWasToggled($a_currently_active)
+    {
+        if ($a_currently_active) {
+            $settings = new ilSetting();
+            $settings->set('esa_cron_lock_status', 0);
+        }
+    }
+    
+    /**
      * @return string
      */
     public function getTitle()

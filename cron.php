@@ -8,7 +8,9 @@ if ($_SERVER['argc'] < 4) {
 }
 try {
     $cron = new ilCronStartUp($_SERVER['argv'][3], $_SERVER['argv'][1], $_SERVER['argv'][2]);
-    $cron->initIlias();
+    if (method_exists($cron, 'initIlias')) {
+        $cron->initIlias();
+    }
     $cron->authenticate();
 
     require_once dirname(__FILE__) . '/classes/class.ilCronElectronicCourseReservePlugin.php';
