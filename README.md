@@ -7,12 +7,18 @@ in this document are to be interpreted as described in
 
 **Table of Contents**
 
+* [Requirements](#requirements)
 * [Install](#install)
 * [Cron Job](#cron-job)
 * [Mailing](#mailing)
 * [Logging](#logging)
 * [Dependencies](#dependencies)
 * [License](#license)
+
+## Requirements
+
+* PHP: [![Minimum PHP Version](https://img.shields.io/badge/Minimum_PHP-7.3.x-blue.svg)](https://php.net/) [![Maximum PHP Version](https://img.shields.io/badge/Maximum_PHP-7.4.x-blue.svg)](https://php.net/)
+* ILIAS: [![Minimum ILIAS Version](https://img.shields.io/badge/Minimum_ILIAS-7.x-orange.svg)](https://ilias.de/) [![Maximum ILIAS Version](https://img.shields.io/badge/Maximum_ILIAS-7.x-orange.svg)](https://ilias.de/)
 
 ## Install
 

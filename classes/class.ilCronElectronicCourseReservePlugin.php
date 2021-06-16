@@ -42,7 +42,7 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
     /**
      * @return ilElectronicCourseReserveMediaImportJob[]
      */
-    public function getCronJobInstances()
+    public function getCronJobInstances() : array
     {
         require_once 'class.ilElectronicCourseReserveMediaImportJob.php';
         return array(new ilElectronicCourseReserveMediaImportJob());
@@ -52,7 +52,7 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
      * @param int $a_job_id
      * @return ilElectronicCourseReserveMediaImportJob
      */
-    public function getCronJobInstance($a_job_id)
+    public function getCronJobInstance(string $a_job_id) : ilCronJob
     {
         require_once 'class.ilElectronicCourseReserveMediaImportJob.php';
         return new ilElectronicCourseReserveMediaImportJob();
@@ -77,8 +77,12 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
     {
         if (null === self::$instance) {
             require_once 'Services/Component/classes/class.ilPluginAdmin.php';
-            return self::$instance = ilPluginAdmin::getPluginObject(self::CTYPE, self::CNAME, self::SLOT_ID,
-                self::PNAME);
+            return self::$instance = ilPluginAdmin::getPluginObject(
+                self::CTYPE,
+                self::CNAME,
+                self::SLOT_ID,
+                self::PNAME
+            );
         }
 
         return self::$instance;
@@ -98,8 +102,11 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
         }
 
         foreach (
-            $GLOBALS['ilPluginAdmin']->getActivePluginsForSlot(IL_COMP_SERVICE, $component,
-                $slot) as $plugin_name
+            $GLOBALS['ilPluginAdmin']->getActivePluginsForSlot(
+                IL_COMP_SERVICE,
+                $component,
+                $slot
+            ) as $plugin_name
         ) {
             $plugin = ilPluginAdmin::getPluginObject(IL_COMP_SERVICE, $component, $slot, $plugin_name);
             if (class_exists($plugin_class) && $plugin instanceof $plugin_class) {
@@ -125,8 +132,11 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
         }
 
         foreach (
-            $GLOBALS['ilPluginAdmin']->getActivePluginsForSlot(IL_COMP_SERVICE, $component,
-                $slot) as $plugin_name
+            $GLOBALS['ilPluginAdmin']->getActivePluginsForSlot(
+                IL_COMP_SERVICE,
+                $component,
+                $slot
+            ) as $plugin_name
         ) {
             $plugin = ilPluginAdmin::getPluginObject(IL_COMP_SERVICE, $component, $slot, $plugin_name);
             if (class_exists($plugin_class) && $plugin instanceof $plugin_class) {
@@ -136,4 +146,4 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
 
         throw new ilException($plugin_class . ' plugin not installed!');
     }
-} 
+}
