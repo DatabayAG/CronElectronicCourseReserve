@@ -117,7 +117,7 @@ class ilElectronicCourseReserveParser extends ilSaxParser
     /**
      * @param $xmlParser
      */
-    public function setHandlers($xmlParser)
+    public function setHandlers($xmlParser): void
     {
         xml_set_object($xmlParser, $this);
         xml_set_element_handler($xmlParser, 'handlerBeginTag', 'handlerEndTag');

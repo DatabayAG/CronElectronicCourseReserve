@@ -52,7 +52,7 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
      * @param int $a_job_id
      * @return ilElectronicCourseReserveMediaImportJob
      */
-    public function getCronJobInstance($a_job_id)
+    public function getCronJobInstance($a_job_id): ilCronJob
     {
         require_once 'class.ilElectronicCourseReserveMediaImportJob.php';
         return new ilElectronicCourseReserveMediaImportJob();
@@ -65,7 +65,7 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
      * (and should be made final)
      * @return    string    Plugin Name
      */
-    public function getPluginName()
+    public function getPluginName(): string
     {
         return self::PNAME;
     }

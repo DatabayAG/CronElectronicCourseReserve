@@ -12,7 +12,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @inheritdoc
      */
-    public function getId()
+    public function getId(): string
     {
         return 'electronic_crs_reserve_media_imp';
     }
@@ -20,7 +20,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @inheritdoc
      */
-    public function hasAutoActivation()
+    public function hasAutoActivation(): bool
     {
         return false;
     }
@@ -28,7 +28,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @inheritdoc
      */
-    public function hasFlexibleSchedule()
+    public function hasFlexibleSchedule(): bool
     {
         return true;
     }
@@ -36,7 +36,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @inheritdoc
      */
-    public function getDefaultScheduleType()
+    public function getDefaultScheduleType(): \ILIAS\Cron\Schedule\CronJobScheduleType
     {
         return self::SCHEDULE_TYPE_DAILY;
     }
@@ -44,7 +44,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @inheritdoc
      */
-    public function getDefaultScheduleValue()
+    public function getDefaultScheduleValue(): ?int
     {
         return 1;
     }
@@ -52,7 +52,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @inheritdoc
      */
-    public function hasCustomSettings()
+    public function hasCustomSettings(): bool
     {
         return true;
     }
@@ -60,7 +60,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @inheritdoc
      */
-    public function run()
+    public function run(): ilCronJobResult
     {
         $result = new ilCronJobResult();
 
@@ -84,20 +84,23 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     }
 
     /**
+     * @param ilDBInterface $db
+     * @param ilSetting $setting
+     * @param bool $a_currently_active
      * @inheritDoc
      */
-    public function activationWasToggled($a_currently_active)
+    public function activationWasToggled(ilDBInterface $db, ilSetting $setting, $a_currently_active): void //@todo Parameter wurden geändert, was jetzt
     {
         if ($a_currently_active) {
             $settings = new ilSetting();
             $settings->set('esa_cron_lock_status', 0);
         }
     }
-    
+
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return ilCronElectronicCourseReservePlugin::getInstance()->txt('ecr_title');
     }
@@ -105,7 +108,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return ilCronElectronicCourseReservePlugin::getInstance()->txt('ecr_title');
     }
@@ -113,7 +116,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     /**
      * @inheritdoc
      */
-    public function addCustomSettingsToForm(ilPropertyFormGUI $a_form)
+    public function addCustomSettingsToForm(ilPropertyFormGUI $a_form): void
     {
         global $DIC;
 
@@ -152,4 +155,4 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
             $a_form->addItem($configUrl);
         }
     }
-} 
+}
