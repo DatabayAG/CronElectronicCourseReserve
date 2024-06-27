@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2013 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+use ILIAS\Cron\Schedule\CronJobScheduleType;
+
 require_once 'Services/Cron/classes/class.ilCronJob.php';
 require_once 'class.ilCronElectronicCourseReservePlugin.php';
 
@@ -9,9 +11,6 @@ require_once 'class.ilCronElectronicCourseReservePlugin.php';
  */
 class ilElectronicCourseReserveMediaImportJob extends ilCronJob
 {
-    /**
-     * @inheritdoc
-     */
     public function getId(): string
     {
         return 'electronic_crs_reserve_media_imp';
@@ -25,40 +24,30 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
         return false;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function hasFlexibleSchedule(): bool
     {
         return true;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getDefaultScheduleType(): \ILIAS\Cron\Schedule\CronJobScheduleType
+    public function getDefaultScheduleType(): CronJobScheduleType
     {
-        return self::SCHEDULE_TYPE_DAILY;
+        return CronJobScheduleType::SCHEDULE_TYPE_DAILY;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getDefaultScheduleValue(): ?int
     {
         return 1;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function hasCustomSettings(): bool
     {
         return true;
     }
 
     /**
-     * @inheritdoc
+     *
+     * @throws ilException
+     * @throws Exception
      */
     public function run(): ilCronJobResult
     {
@@ -89,7 +78,7 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
      * @param bool $a_currently_active
      * @inheritDoc
      */
-    public function activationWasToggled(ilDBInterface $db, ilSetting $setting, $a_currently_active): void //@todo Parameter wurden geändert, was jetzt
+    public function activationWasToggled(ilDBInterface $db, ilSetting $setting, bool $a_currently_active): void //@todo Parameter wurden geändert, was jetzt
     {
         if ($a_currently_active) {
             $settings = new ilSetting();
@@ -114,7 +103,8 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
     }
 
     /**
-     * @inheritdoc
+     *
+     * @throws ilException | ilCtrlException
      */
     public function addCustomSettingsToForm(ilPropertyFormGUI $a_form): void
     {
@@ -129,6 +119,9 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
                 ilCronElectronicCourseReservePlugin::getInstance()->txt('ecr_configuration_page'), '', true
             );
 
+            /**
+             * @var $pl ilElectronicCourseReservePlugin
+             */
             $pl = ilCronElectronicCourseReservePlugin::getInstance()->getPlugin(
                 'UIComponent', 'uihk', 'ilElectronicCourseReservePlugin'
             );
@@ -140,9 +133,9 @@ class ilElectronicCourseReserveMediaImportJob extends ilCronJob
             $refId = current($refIds);
 
             $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'ref_id', $refId);
-            $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'ctype', $pl->getComponentType());
-            $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'cname', $pl->getComponentName());
-            $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'slot_id', $pl->getSlotId());
+            $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'ctype', $pl::CTYPE);
+            $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'cname', $pl::CNAME);
+            $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'slot_id', $pl::SLOT_ID);
             $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'plugin_id', $pl->getId());
             $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'pname', $pl->getPluginName());
             $DIC->ctrl()->setParameterByClass('ilElectronicCourseReserveConfigGUI', 'admin_mode', 'settings');

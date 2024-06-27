@@ -9,17 +9,17 @@ class ilElectronicCourseReserveParser extends ilSaxParser
     /**
      * @var ilElectronicCourseReserveContainer
      */
-    protected $ele_crs_res;
+    protected ilElectronicCourseReserveContainer $ele_crs_res;
 
     /**
      * @var bool
      */
-    protected $inItemTag;
+    protected bool $inItemTag;
 
     /**
      * @var string
      */
-    public $cdata;
+    public string $cdata;
 
     /**
      * @param                      $xmlFile
@@ -36,7 +36,7 @@ class ilElectronicCourseReserveParser extends ilSaxParser
      * @param $tagName
      * @param $tagAttributes
      */
-    public function handlerBeginTag($xmlParser, $tagName, $tagAttributes)
+    public function handlerBeginTag($xmlParser, $tagName, $tagAttributes): void
     {
         switch ($tagName) {
             case 'label':
@@ -59,11 +59,9 @@ class ilElectronicCourseReserveParser extends ilSaxParser
                 if (strtolower($item_type) === 'url') {
                     new ilElectronicCourseReserveUrlParser($this->ele_crs_res, $xmlParser);
                     $this->ele_crs_res->setType('url');
-                } else {
-                    if (strtolower($item_type) === 'file') {
-                        new ilElectronicCourseReserveFileParser($this->ele_crs_res, $xmlParser);
-                        $this->ele_crs_res->setType('file');
-                    }
+                } else if (strtolower($item_type) === 'file') {
+                    new ilElectronicCourseReserveFileParser($this->ele_crs_res, $xmlParser);
+                    $this->ele_crs_res->setType('file');
                 }
                 $this->inItemTag = true;
                 break;
@@ -86,7 +84,7 @@ class ilElectronicCourseReserveParser extends ilSaxParser
      * @param $xmlParser
      * @param $tagName
      */
-    public function handlerEndTag($xmlParser, $tagName)
+    public function handlerEndTag($xmlParser, $tagName): void
     {
         switch ($tagName) {
             case 'item':
@@ -101,34 +99,26 @@ class ilElectronicCourseReserveParser extends ilSaxParser
         }
     }
 
-    /**
-     * @param $attributes
-     * @param $name
-     * @return null
-     */
-    private function fetchAttribute($attributes, $name)
+    private function fetchAttribute(array $attributes, $name): mixed
     {
-        if (isset($attributes[$name])) {
-            return $attributes[$name];
-        }
-        return null;
+        return $attributes[$name] ?? null;
     }
 
     /**
-     * @param $xmlParser
+     * @param $a_xml_parser
      */
-    public function setHandlers($xmlParser): void
+    public function setHandlers($a_xml_parser): void
     {
-        xml_set_object($xmlParser, $this);
-        xml_set_element_handler($xmlParser, 'handlerBeginTag', 'handlerEndTag');
-        xml_set_character_data_handler($xmlParser, 'handlerCharacterData');
+        xml_set_object($a_xml_parser, $this);
+        xml_set_element_handler($a_xml_parser, 'handlerBeginTag', 'handlerEndTag');
+        xml_set_character_data_handler($a_xml_parser, 'handlerCharacterData');
     }
 
     /**
      * @param $xmlParser
      * @param $charData
      */
-    public function handlerCharacterData($xmlParser, $charData)
+    public function handlerCharacterData($xmlParser, $charData): void
     {
         if ($charData != "\n") {
             // Replace multiple tabs with one space
@@ -141,7 +131,7 @@ class ilElectronicCourseReserveParser extends ilSaxParser
     /**
      * @return ilElectronicCourseReserveContainer
      */
-    public function getElectronicCourseReserveContainer()
+    public function getElectronicCourseReserveContainer(): ilElectronicCourseReserveContainer
     {
         return $this->ele_crs_res;
     }

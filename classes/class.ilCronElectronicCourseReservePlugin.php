@@ -16,28 +16,41 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
     /**
      * @var string
      */
-    const CNAME = 'Cron';
+    const CNAME = 'CronHook';
 
     /**
      * @var string
      */
     const SLOT_ID = 'crnhk';
+    /**
+     * @var string
+     */
+    public const PLUGIN_ID = 'cronecr';
 
     /**
      * @var string
      */
-    const PNAME = 'CronElectronicCourseReserve';
+    private const PNAME = 'CronElectronicCourseReserve';
 
-    /**
-     * @var ilElectronicCourseReservePlugin
-     */
-    private static $instance = null;
+    private static ?ilElectronicCourseReservePlugin $instance = null;
 
     /** @var array */
-    protected static $active_plugins_check_cache = array();
+    protected static array $active_plugins_check_cache = array();
 
     /** @var array */
-    protected static $active_plugins_cache = array();
+    protected static array $active_plugins_cache = array();
+    private ilComponentFactory $componentFactory;
+
+    public function __construct(ilDBInterface $db, ilComponentRepositoryWrite $component_repository, string $id)
+    {
+        parent::__construct($db, $component_repository, $id);
+
+        global $DIC;
+        /**
+         * @var ilComponentFactory $componentFactory
+         */
+        $this->componentFactory = $DIC["component.factory"];
+    }
 
     /**
      * @return ilElectronicCourseReserveMediaImportJob[]
@@ -49,10 +62,10 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
     }
 
     /**
-     * @param int $a_job_id
+     * @param int $jobId
      * @return ilElectronicCourseReserveMediaImportJob
      */
-    public function getCronJobInstance($a_job_id): ilCronJob
+    public function getCronJobInstance($jobId): ilCronJob
     {
         require_once 'class.ilElectronicCourseReserveMediaImportJob.php';
         return new ilElectronicCourseReserveMediaImportJob();
@@ -70,45 +83,41 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
         return self::PNAME;
     }
 
-    /**
-     * @return self|ilPlugin
-     */
     public static function getInstance()
     {
         if (null === self::$instance) {
-            require_once 'Services/Component/classes/class.ilPluginAdmin.php';
-            return self::$instance = ilPluginAdmin::getPluginObject(
+            global $DIC;
+
+            /** @var ilComponentRepository $component_repository */
+            if(!isset($DIC['component.repository'])) {
+                $component =  new InitComponentService();
+                $component->init($DIC);
+            }
+            $component_repository = $DIC['component.repository'];
+            /** @var ilComponentFactory $component_factory */
+            $component_factory = $DIC['component.factory'];
+
+            $plugin_info = $component_repository->getComponentByTypeAndName(
                 self::CTYPE,
-                self::CNAME,
-                self::SLOT_ID,
-                self::PNAME
-            );
+                self::CNAME
+            )->getPluginSlotById(self::SLOT_ID)->getPluginByName(self::PNAME);
+
+            self::$instance = $component_factory->getPlugin($plugin_info->getId());
+
         }
 
         return self::$instance;
     }
 
-    /**
-     * @param string $component
-     * @param string $slot
-     * @param string $plugin_class
-     *
-     * @return bool
-     */
-    public function isPluginInstalled($component, $slot, $plugin_class)
+    public function isPluginInstalled(string $component, string $slot, string $plugin_class): bool
     {
         if (isset(self::$active_plugins_check_cache[$component][$slot][$plugin_class])) {
             return self::$active_plugins_check_cache[$component][$slot][$plugin_class];
         }
 
         foreach (
-            $GLOBALS['ilPluginAdmin']->getActivePluginsForSlot(
-                IL_COMP_SERVICE,
-                $component,
-                $slot
-            ) as $plugin_name
+            $this->componentFactory->getActivePluginsInSlot($slot) as $plugin
         ) {
-            $plugin = ilPluginAdmin::getPluginObject(IL_COMP_SERVICE, $component, $slot, $plugin_name);
             if (class_exists($plugin_class) && $plugin instanceof $plugin_class) {
                 return (self::$active_plugins_check_cache[$component][$slot][$plugin_class] = true);
             }
@@ -125,20 +134,15 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
      * @return ilPlugin
      * @throws ilException
      */
-    public function getPlugin($component, $slot, $plugin_class)
+    public function getPlugin(string $component, string $slot, string $plugin_class): ilPlugin
     {
         if (isset(self::$active_plugins_cache[$component][$slot][$plugin_class])) {
             return self::$active_plugins_cache[$component][$slot][$plugin_class];
         }
 
         foreach (
-            $GLOBALS['ilPluginAdmin']->getActivePluginsForSlot(
-                IL_COMP_SERVICE,
-                $component,
-                $slot
-            ) as $plugin_name
+            $this->componentFactory->getActivePluginsInSlot($slot) as $plugin
         ) {
-            $plugin = ilPluginAdmin::getPluginObject(IL_COMP_SERVICE, $component, $slot, $plugin_name);
             if (class_exists($plugin_class) && $plugin instanceof $plugin_class) {
                 return (self::$active_plugins_cache[$component][$slot][$plugin_class] = $plugin);
             }

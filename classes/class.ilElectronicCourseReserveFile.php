@@ -5,37 +5,37 @@ class ilElectronicCourseReserveFile
     /**
      * @var string
      */
-    protected $icon = '';
+    protected string $icon = '';
 
     /**
      * @var string
      */
-    protected $label = '';
+    protected string $label = '';
 
     /**
      * @var string
      */
-    protected $file = '';
+    protected string $file = '';
 
     /**
      * @var string
      */
-    protected $filename = '';
+    protected string $filename = '';
 
     /**
      * @var string
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * @var string
      */
-    protected $metadata = '';
+    protected string $metadata = '';
 
     /**
      * @return string
      */
-    public function getIcon()
+    public function getIcon(): string
     {
         return $this->icon;
     }
@@ -43,7 +43,7 @@ class ilElectronicCourseReserveFile
     /**
      * @param string $icon
      */
-    public function setIcon($icon)
+    public function setIcon(string $icon): void
     {
         $this->icon = $icon;
     }
@@ -51,7 +51,7 @@ class ilElectronicCourseReserveFile
     /**
      * @return string
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -59,7 +59,7 @@ class ilElectronicCourseReserveFile
     /**
      * @param string $label
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
@@ -67,7 +67,7 @@ class ilElectronicCourseReserveFile
     /**
      * @return string
      */
-    public function getFile()
+    public function getFile(): string
     {
         return $this->file;
     }
@@ -75,7 +75,7 @@ class ilElectronicCourseReserveFile
     /**
      * @param string $file
      */
-    public function setFile($file)
+    public function setFile(string $file): void
     {
         $this->file = $file;
     }
@@ -83,7 +83,7 @@ class ilElectronicCourseReserveFile
     /**
      * @return string
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return $this->filename;
     }
@@ -91,7 +91,7 @@ class ilElectronicCourseReserveFile
     /**
      * @param string $filename
      */
-    public function setFilename($filename)
+    public function setFilename(string $filename): void
     {
         $this->filename = $filename;
     }
@@ -99,7 +99,7 @@ class ilElectronicCourseReserveFile
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -107,7 +107,7 @@ class ilElectronicCourseReserveFile
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -115,7 +115,7 @@ class ilElectronicCourseReserveFile
     /**
      * @return string
      */
-    public function getMetadata()
+    public function getMetadata(): string
     {
         return $this->metadata;
     }
@@ -123,7 +123,7 @@ class ilElectronicCourseReserveFile
     /**
      * @param string $metadata
      */
-    public function setMetadata($metadata)
+    public function setMetadata(string $metadata): void
     {
         $this->metadata = $metadata;
     }

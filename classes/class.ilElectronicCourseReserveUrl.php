@@ -5,32 +5,32 @@ class ilElectronicCourseReserveUrl
     /**
      * @var string
      */
-    protected $icon = '';
+    protected string $icon = '';
 
     /**
      * @var string
      */
-    protected $label = '';
+    protected string $label = '';
 
     /**
      * @var string
      */
-    protected $url = '';
+    protected string $url = '';
 
     /**
      * @var string
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * @var string
      */
-    protected $metadata = '';
+    protected string $metadata = '';
 
     /**
      * @return string
      */
-    public function getIcon()
+    public function getIcon(): string
     {
         return $this->icon;
     }
@@ -38,7 +38,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @param string $icon
      */
-    public function setIcon($icon)
+    public function setIcon(string $icon): void
     {
         $this->icon = $icon;
     }
@@ -46,7 +46,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @return string
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -54,7 +54,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @param string $label
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
@@ -62,7 +62,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -70,7 +70,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @param string $url
      */
-    public function setUrl($url)
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
@@ -78,7 +78,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -86,7 +86,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -94,7 +94,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @return string
      */
-    public function getMetadata()
+    public function getMetadata(): string
     {
         return $this->metadata;
     }
@@ -102,7 +102,7 @@ class ilElectronicCourseReserveUrl
     /**
      * @param string $metadata
      */
-    public function setMetadata($metadata)
+    public function setMetadata(string $metadata): void
     {
         $this->metadata = $metadata;
     }

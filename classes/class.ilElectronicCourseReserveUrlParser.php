@@ -7,17 +7,17 @@ class ilElectronicCourseReserveUrlParser extends ilSaxParser
     /**
      * @var bool
      */
-    protected $inItemTag;
+    protected bool $inItemTag;
 
     /**
      * @var ilElectronicCourseReserveContainer
      */
-    protected $container;
+    protected ilElectronicCourseReserveContainer $container;
 
     /**
      * @var string
      */
-    public $cdata;
+    public string $cdata;
 
     /**
      * ilElectronicCourseReserveUrlParser constructor.
@@ -37,31 +37,15 @@ class ilElectronicCourseReserveUrlParser extends ilSaxParser
      * @param $tagName
      * @param $tagAttributes
      */
-    public function handlerBeginTag($xmlParser, $tagName, $tagAttributes)
+    public function handlerBeginTag($xmlParser, $tagName, $tagAttributes): void
     {
-        switch ($tagName) {
-            case 'icon':
-                break;
-
-            case 'url':
-                break;
-
-            case 'description':
-                break;
-
-            case 'label':
-                break;
-
-            case 'metadata':
-                break;
-        }
     }
 
     /**
      * @param $xmlParser
      * @param $tagName
      */
-    public function handlerEndTag($xmlParser, $tagName)
+    public function handlerEndTag($xmlParser, $tagName): void
     {
         switch ($tagName) {
             case 'icon':
@@ -92,20 +76,20 @@ class ilElectronicCourseReserveUrlParser extends ilSaxParser
     }
 
     /**
-     * @param $xmlParser
+     * @param $a_xml_parser
      */
-    public function setHandlers($xmlParser): void
+    public function setHandlers($a_xml_parser): void
     {
-        xml_set_object($xmlParser, $this);
-        xml_set_element_handler($xmlParser, 'handlerBeginTag', 'handlerEndTag');
-        xml_set_character_data_handler($xmlParser, 'handlerCharacterData');
+        xml_set_object($a_xml_parser, $this);
+        xml_set_element_handler($a_xml_parser, 'handlerBeginTag', 'handlerEndTag');
+        xml_set_character_data_handler($a_xml_parser, 'handlerCharacterData');
     }
 
     /**
      * @param $xmlParser
      * @param $charData
      */
-    public function handlerCharacterData($xmlParser, $charData)
+    public function handlerCharacterData($xmlParser, $charData): void
     {
         if ($charData != "\n") {
             // Replace multiple tabs with one space
@@ -118,7 +102,7 @@ class ilElectronicCourseReserveUrlParser extends ilSaxParser
     /**
      * @return ilElectronicCourseReserveContainer
      */
-    public function getElectronicCourseReserveContainer()
+    public function getElectronicCourseReserveContainer(): ilElectronicCourseReserveContainer
     {
         return $this->container;
     }

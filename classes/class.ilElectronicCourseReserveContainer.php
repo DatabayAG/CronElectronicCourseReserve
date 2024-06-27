@@ -5,47 +5,45 @@ class ilElectronicCourseReserveContainer
     /**
      * @var string
      */
-    protected $label = '';
+    protected string $label = '';
 
     /**
      * @var string
      */
-    protected $timestamp = '';
+    protected string $timestamp = '';
 
     /**
      * @var string
      */
-    protected $timestamp_format = '';
+    protected string $timestamp_format = '';
 
-    /**
-     * @var ilElectronicCourseReserveFile | ilElectronicCourseReserveUrl
-     */
-    protected $item = null;
+
+    protected ilElectronicCourseReserveUrl|ilElectronicCourseReserveFile|null $item = null;
 
     /**
      * @var string
      */
-    protected $type = '';
+    protected string $type = '';
 
     /**
      * @var int
      */
-    protected $crs_ref_id = 0;
+    protected int $crs_ref_id = 0;
 
     /**
      * @var int
      */
-    protected $folder_import_id = 0;
+    protected int $folder_import_id = 0;
 
     /**
      * @var int
      */
-    protected $overwrite = 0;
+    protected int $overwrite = 0;
 
     /**
      * @return string
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -53,7 +51,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @param string $label
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
@@ -61,7 +59,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @return string
      */
-    public function getTimestamp()
+    public function getTimestamp(): string
     {
         return $this->timestamp;
     }
@@ -69,7 +67,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @param string $timestamp
      */
-    public function setTimestamp($timestamp)
+    public function setTimestamp(string $timestamp): void
     {
         $this->timestamp = $timestamp;
     }
@@ -77,7 +75,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @return string
      */
-    public function getTimestampFormat()
+    public function getTimestampFormat(): string
     {
         return $this->timestamp_format;
     }
@@ -85,15 +83,12 @@ class ilElectronicCourseReserveContainer
     /**
      * @param string $timestamp_format
      */
-    public function setTimestampFormat($timestamp_format)
+    public function setTimestampFormat(string $timestamp_format): void
     {
         $this->timestamp_format = $timestamp_format;
     }
 
-    /**
-     * @return ilElectronicCourseReserveFile|ilElectronicCourseReserveUrl
-     */
-    public function getItem()
+    public function getItem(): ilElectronicCourseReserveFile|ilElectronicCourseReserveUrl|null
     {
         return $this->item;
     }
@@ -101,7 +96,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @param ilElectronicCourseReserveFile|ilElectronicCourseReserveUrl $item
      */
-    public function setItem($item)
+    public function setItem(ilElectronicCourseReserveFile|ilElectronicCourseReserveUrl $item): void
     {
         $this->item = $item;
     }
@@ -109,7 +104,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -117,7 +112,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @param string $type
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -125,7 +120,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @return int
      */
-    public function getCrsRefId()
+    public function getCrsRefId(): int
     {
         return $this->crs_ref_id;
     }
@@ -133,7 +128,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @param int $crs_ref_id
      */
-    public function setCrsRefId($crs_ref_id)
+    public function setCrsRefId(int $crs_ref_id): void
     {
         $this->crs_ref_id = $crs_ref_id;
     }
@@ -141,7 +136,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @return int
      */
-    public function getFolderImportId()
+    public function getFolderImportId(): int
     {
         return $this->folder_import_id;
     }
@@ -149,7 +144,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @param int $folder_import_id
      */
-    public function setFolderImportId($folder_import_id)
+    public function setFolderImportId(int $folder_import_id): void
     {
         $this->folder_import_id = $folder_import_id;
     }
@@ -157,7 +152,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @return int
      */
-    public function getOverwrite()
+    public function getOverwrite(): int
     {
         return $this->overwrite;
     }
@@ -165,7 +160,7 @@ class ilElectronicCourseReserveContainer
     /**
      * @param int $overwrite
      */
-    public function setOverwrite($overwrite)
+    public function setOverwrite(int $overwrite): void
     {
         $this->overwrite = $overwrite;
     }
