@@ -19,7 +19,7 @@ class ilElectronicCourseReserveParser extends ilSaxParser
     /**
      * @var string
      */
-    public string $cdata;
+    public string $cdata = '';
 
     /**
      * @param                      $xmlFile
