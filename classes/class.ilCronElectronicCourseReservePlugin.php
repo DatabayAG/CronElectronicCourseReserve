@@ -16,7 +16,7 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
     /**
      * @var string
      */
-    const CNAME = 'CronHook';
+    const CNAME = 'Cron';
 
     /**
      * @var string
@@ -32,7 +32,7 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
      */
     private const PNAME = 'CronElectronicCourseReserve';
 
-    private static ?ilElectronicCourseReservePlugin $instance = null;
+    private static ?self $instance = null;
 
     /** @var array */
     protected static array $active_plugins_check_cache = array();
@@ -83,28 +83,25 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
         return self::PNAME;
     }
 
-    public static function getInstance()
+    public static function getInstance(): self
     {
-        if (null === self::$instance) {
-            global $DIC;
+        global $DIC;
 
-            /** @var ilComponentRepository $component_repository */
-            if(!isset($DIC['component.repository'])) {
-                $component =  new InitComponentService();
-                $component->init($DIC);
-            }
-            $component_repository = $DIC['component.repository'];
-            /** @var ilComponentFactory $component_factory */
-            $component_factory = $DIC['component.factory'];
-
-            $plugin_info = $component_repository->getComponentByTypeAndName(
-                self::CTYPE,
-                self::CNAME
-            )->getPluginSlotById(self::SLOT_ID)->getPluginByName(self::PNAME);
-
-            self::$instance = $component_factory->getPlugin($plugin_info->getId());
-
+        if (self::$instance instanceof self) {
+            return self::$instance;
         }
+
+        /** @var ilComponentRepository $component_repository */
+        $component_repository = $DIC['component.repository'];
+        /** @var ilComponentFactory $component_factory */
+        $component_factory = $DIC['component.factory'];
+
+        $plugin_info = $component_repository->getComponentByTypeAndName(
+            self::CTYPE,
+            self::CNAME
+        )->getPluginSlotById(self::SLOT_ID)->getPluginByName(self::PNAME);
+
+        self::$instance = $component_factory->getPlugin($plugin_info->getId());
 
         return self::$instance;
     }

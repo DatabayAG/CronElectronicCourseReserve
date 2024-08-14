@@ -17,7 +17,7 @@ class ilElectronicCourseReserveUrlParser extends ilSaxParser
     /**
      * @var string
      */
-    public string $cdata;
+    public string $cdata = '';
 
     /**
      * ilElectronicCourseReserveUrlParser constructor.
