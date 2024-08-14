@@ -1,4 +1,5 @@
 <?php
+
 require_once 'Services/Xml/classes/class.ilSaxParser.php';
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/CronElectronicCourseReserve/classes/class.ilElectronicCourseReserveContainer.php';
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/CronElectronicCourseReserve/classes/class.ilElectronicCourseReserveUrlParser.php';
@@ -59,7 +60,7 @@ class ilElectronicCourseReserveParser extends ilSaxParser
                 if (strtolower($item_type) === 'url') {
                     new ilElectronicCourseReserveUrlParser($this->ele_crs_res, $xmlParser);
                     $this->ele_crs_res->setType('url');
-                } else if (strtolower($item_type) === 'file') {
+                } elseif (strtolower($item_type) === 'file') {
                     new ilElectronicCourseReserveFileParser($this->ele_crs_res, $xmlParser);
                     $this->ele_crs_res->setType('file');
                 }

@@ -20,4 +20,3 @@ try {
     echo $e->getMessage() . "\n";
     exit(1);
 }
-

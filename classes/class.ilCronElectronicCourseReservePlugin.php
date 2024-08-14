@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (c) 1998-2013 ILIAS open source, Extended GPL, see docs/LICENSE */
 
 require_once 'Services/Cron/classes/class.ilCronHookPlugin.php';
@@ -11,17 +12,17 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
     /**
      * @var string
      */
-    const CTYPE = 'Services';
+    public const CTYPE = 'Services';
 
     /**
      * @var string
      */
-    const CNAME = 'Cron';
+    public const CNAME = 'Cron';
 
     /**
      * @var string
      */
-    const SLOT_ID = 'crnhk';
+    public const SLOT_ID = 'crnhk';
     /**
      * @var string
      */
@@ -55,7 +56,7 @@ class ilCronElectronicCourseReservePlugin extends ilCronHookPlugin
     /**
      * @return ilElectronicCourseReserveMediaImportJob[]
      */
-    public function getCronJobInstances() : array
+    public function getCronJobInstances(): array
     {
         require_once 'class.ilElectronicCourseReserveMediaImportJob.php';
         return array(new ilElectronicCourseReserveMediaImportJob());
